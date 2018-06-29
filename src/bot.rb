@@ -3,7 +3,6 @@ require 'ostruct'
 require 'json'
 
 module Bot
-
   CONFIG = OpenStruct.new(JSON.parse(File.open('config.json').read))
   BOT = Discordrb::Commands::CommandBot.new(token: CONFIG.token, client_id: CONFIG.client_id, prefix: '!')
 
@@ -16,7 +15,10 @@ module Bot
     end
   end
 
+  load_modules(:Commands, 'commands')
   load_modules(:Events, 'events')
 
-  BOT.run
+  BOT.run :async
+  puts "Bot is running!"
+  BOT.sync
 end

@@ -1,6 +1,6 @@
 # Discord-Navi
-A discord bot by gyneco2d using discordrb library.
-It's still under development.
+A discord bot by gyneco2d using discordrb library.  
+It's still under development.  
 
 ### implemented
 - Notification when joining a voice channel.
@@ -10,6 +10,8 @@ It's still under development.
 $ git clone https://github.com/gyneco2d/Discord-Navi.git
 $ cd Discord-Navi
 $ bundle install
+$ cp config.json.example config.json
+$ vim config.json  # fill in token & client_id
 $ ruby run.rb
 ```
 
