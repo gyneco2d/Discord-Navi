@@ -3,7 +3,7 @@ require 'ostruct'
 require 'json'
 
 module Bot
-  CONFIG = OpenStruct.new(JSON.parse(File.open('config.json').read))
+  CONFIG = OpenStruct.new(JSON.parse(File.open('data/config.json').read))
   BOT = Discordrb::Commands::CommandBot.new(token: CONFIG.token, client_id: CONFIG.client_id, prefix: '!')
 
   def self.load_modules(cls, path)

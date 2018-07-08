@@ -1,2 +1,4 @@
-config.json
+.DS_Store
 Gemfile.lock
+data/*
+!data/config.json.example
