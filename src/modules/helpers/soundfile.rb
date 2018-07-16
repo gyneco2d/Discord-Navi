@@ -1,7 +1,8 @@
+require 'base64'
+require 'fileutils'
+require 'json'
 require 'net/http'
 require 'uri'
-require 'json'
-require 'base64'
 
 module Helpers
   module Soundfile
@@ -36,6 +37,7 @@ module Helpers
       res = https.request(req)
       content = JSON.parse res.body
 
+      FileUtils.mkdir_p('data/soundfile/') unless File.exist?('data/soundfile/')
       File.open("data/soundfiles/#{username}.mp3", 'w').write(Base64.decode64 content["audioContent"])
     end
   end
