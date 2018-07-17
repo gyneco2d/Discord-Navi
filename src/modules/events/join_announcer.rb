@@ -23,18 +23,13 @@ module Bot::Events
           end
           exit unless default_text_channel
         rescue SystemExit => err
-          puts "There is no text channel. Bot is shutting down."
-          exit(1)
+          puts "[WARN] There is no text channel."
         end
 
         # notify only when joining any channel
         if event.old_channel.nil?
           # text notification
-          text = ""
-          text << event.user.name
-          text << " joined "
-          text << event.channel.name
-          text
+          text = "#{event.user.name} joined #{event.channel.name}"
           event.bot.send_message(default_text_channel, text)
 
           # voice notification
