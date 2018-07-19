@@ -1,6 +1,6 @@
 require 'discordrb'
-require 'ostruct'
 require 'json'
+require 'ostruct'
 
 module Bot
   CONFIG = OpenStruct.new(JSON.parse(File.open('data/config.json').read))

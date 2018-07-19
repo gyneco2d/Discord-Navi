@@ -31,7 +31,6 @@ module Bot::Events
           # text notification
           text = "#{event.user.name} joined #{event.channel.name}"
           event.bot.send_message(default_text_channel, text)
-
           # voice notification
           if !File.exist?("data/soundfiles/#{event.user.name}.mp3")
             Helpers::Soundfile.request(event.user.name, event.channel.name)
