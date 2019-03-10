@@ -42,7 +42,9 @@ module Helpers
       content = JSON.parse(res.body)
 
       FileUtils.mkdir_p('data/soundfiles/') unless File.exist?('data/soundfiles/')
-      File.open("data/soundfiles/#{username}.mp3", 'w').write(Base64.decode64(content["audioContent"]))
+      soundfile = File.open("data/soundfiles/#{username}.mp3", 'w')
+      soundfile.write(Base64.decode64(content["audioContent"]))
+      soundfile.sync = true
     end
   end
 end
