@@ -35,10 +35,12 @@ module Bot::Events
           if !File.exist?("data/soundfiles/#{event.user.name}.mp3")
             Helpers::Soundfile.request(event.user.name, event.channel.name)
           end
-          voice_bot = event.bot.voice_connect(event.channel.id)
-          voice_bot.volume = 1 #default
-          voice_bot.play_file "data/soundfiles/#{event.user.name}.mp3"
-          voice_bot.destroy
+          if File.exist?("data/soundfiles/#{event.user.name}.mp3")
+            voice_bot = event.bot.voice_connect(event.channel.id)
+            voice_bot.volume = 1 #default
+            voice_bot.play_file("data/soundfiles/#{event.user.name}.mp3")
+            voice_bot.destroy
+          end
         end
       end
     end
