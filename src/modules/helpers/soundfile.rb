@@ -36,15 +36,27 @@ module Helpers
           "name": "en-US-Wavenet-F"
         }
       }.to_json
-
       req.body = payload
-      res = https.request(req)
-      content = JSON.parse(res.body)
 
-      FileUtils.mkdir_p('data/soundfiles/') unless File.exist?('data/soundfiles/')
-      soundfile = File.open("data/soundfiles/#{username}.mp3", 'w')
-      soundfile.write(Base64.decode64(content["audioContent"]))
-      soundfile.sync = true
+      begin
+        response = https.request(req)
+
+        case response
+        when Net::HTTPSuccess
+          content = JSON.parse(response.body)
+
+          FileUtils.mkdir_p('data/soundfiles/') unless File.exist?('data/soundfiles/')
+          soundfile = File.open("data/soundfiles/#{username}.mp3", 'w')
+          soundfile.write(Base64.decode64(content["audioContent"]))
+          soundfile.sync = true
+        else
+          puts [uri.to_s, response.value].join(" : ")
+          nil
+        end
+      rescue => e
+        puts [uri.to_s, e.class, e].join(" : ")
+        nil
+      end
     end
   end
 end
